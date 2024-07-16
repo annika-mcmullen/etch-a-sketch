@@ -1,0 +1,19 @@
+
+/* Style sheet for etch-a-sketch */
+.container{
+    display: flex;
+}
+/* outer div that  */
+.grid-row{
+    width:100%;
+    height: auto;
+}
+
+.grid-column{
+    outline: auto;
+    height: 40px;
+    width: 1fr;
+    flex-wrap: wrap;
+    align-items: stretch;
+    box-sizing: border-box;
+}
