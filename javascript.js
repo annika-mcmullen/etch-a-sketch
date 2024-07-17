@@ -2,31 +2,73 @@
 
 let container = document.querySelector('#containerDiv');
 
+//game board size is set to 16 by default, updated later
+let userWidth = 16;
+let userHeight =16;
+// creates etch-a-sketch board to user size requirements
 
-//use a for loop to  create 16x16 divs and append to add to html
-// for (let i=0; i < 16; i++){
-//     for (let j=0; j<16; j++){
-//         let boxDiv = document.createElement('div');
-//         boxDiv.className= "grid-box";
-//         container.appendChild(boxDiv);
-//     }
-// }
-//creates a div for each row allowing graph to be limited to 16x16
-for (let i = 0; i < 16; i++) {
-   let rowContainer = document.createElement('div');
-   rowContainer.className = "grid-row";
-    for (let j = 0; j < 16; j++) {
-        let boxDiv = document.createElement('div');
-        boxDiv.className = "grid-column";
-        rowContainer.appendChild(boxDiv);
+
+function drawBoard(userWidth, userHeight){
+    for (let i = 0; i < userHeight; i++) {
+        let rowContainer = document.createElement('div');
+        rowContainer.className = "grid-row";
+        for (let j = 0; j < userWidth; j++) {
+            let boxDiv = document.createElement('div');
+            boxDiv.className = "grid-column";
+            rowContainer.appendChild(boxDiv);
+        }
+        container.appendChild(rowContainer);
+
     }
-    container.appendChild(rowContainer);
-}
-let boxList = document.querySelectorAll('.grid-column');
-
-//add event listener for mouseover
-boxList.forEach(function(box){
-    box.addEventListener("mouseover", function(){
-        box.style.background ="blue";
+    //node list of all the boxes within grid
+    let boxList = document.querySelectorAll('.grid-column');
+    //add event listener for mouseover
+    boxList.forEach(function (box) {
+        box.addEventListener("mouseover", function () {
+            box.style.background = "blue";
     });
 });
+
+}
+//Starting game board at default size 16x16
+drawBoard(userWidth, userHeight);
+//gives ability to clear board after every game session
+function clearBoard(container){
+    while(container.lastElementChild){
+        container.removeChild(container.lastElementChild);
+    }
+}
+
+//node list of all the boxes within grid
+//let boxList = document.querySelectorAll('.grid-column');
+// //add event listener for mouseover
+// boxList.forEach(function (box) {
+//     box.addEventListener("mouseover", function () {
+//         box.style.background = "blue";
+//     });
+// });
+
+let newGameBtn = document.querySelector('#newBoardBtn');
+//event listener to create a new game
+newGameBtn.addEventListener('click', ()=> {
+    userWidth = prompt("How many squares wide would you like your new board?", "16");
+    userHeight= prompt("How many squares wide would you like your new board?", "16");
+
+    //check input is valid
+    if (userWidth===NaN || userHeight === NaN){
+        alert("Please enter a valid board size");
+    }
+    else if (userWidth > 100 || userHeight >100 || userWidth < 2 || userHeight < 2){
+        alert("Please enter a number between 2 and 100!");
+    }
+    //clear the existing board and redraw with user specs
+    clearBoard(container);
+    drawBoard(userWidth, userHeight);
+});
+
+// //add event listener for mouseover
+// boxList.forEach(function (box) {
+//     box.addEventListener("mouseover", function () {
+//         box.style.background = "blue";
+//     });
+// });
