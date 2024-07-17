@@ -22,3 +22,11 @@ for (let i = 0; i < 16; i++) {
     }
     container.appendChild(rowContainer);
 }
+let boxList = document.querySelectorAll('.grid-column');
+
+//add event listener for mouseover
+boxList.forEach(function(box){
+    box.addEventListener("mouseover", function(){
+        box.style.background ="blue";
+    });
+});
